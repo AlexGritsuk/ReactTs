@@ -1,0 +1,49 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  color: var(--black);
+  background: #f5f6f8;
+
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #3b434e;
+  --gray-light: #ebebeb;
+  --white: white;
+  --primary: #7653fc;
+  --primary-hover: #5230db;
+  --green: #1dc37e;
+  --green-light: #c8f8e4;
+  --fint-family: "Noto Sans", sans-serif;
+}
+
+.container {
+  width: auto;
+  max-width: 1200px;
+  margin: 0 auto;
+}
