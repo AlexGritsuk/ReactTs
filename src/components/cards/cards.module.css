@@ -1,3 +1,6 @@
+.cards_wrapper {
+  position: relative;
+}
 .cards {
   display: grid;
   justify-content: center;
@@ -13,4 +16,8 @@
 .cards__pagin {
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: 870px;
+  left: 50%;
+ transform: translate(-50%, -50%)
 }

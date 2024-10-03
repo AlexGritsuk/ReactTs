@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Htag } from "../Htag/Htag";
 import { CardProps } from "./card.props";
 import styles from "./card.module.css";
@@ -9,6 +8,7 @@ import { cardRemove } from "../../store/cardsReducer";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
 import { sliceText } from "../../utils/sliceText";
+import { Link } from "react-router-dom";
 
 export const Card = ({
   children,
@@ -16,9 +16,9 @@ export const Card = ({
   price,
   title,
   id,
+  like,
+  handleLikeAdd,
 }: CardProps) => {
-  const [like, setLike] = useState(true); 
-
   const dispatch = useAppDispatch();
 
   const handleRemove = (id: number) => {
@@ -27,27 +27,29 @@ export const Card = ({
 
   let shortText = sliceText(title);
 
-  const handleClickLike = (): void => {
-    setLike(!like);
-  };
-
   return (
-    <div className={styles.card_item}>
-      <div className={styles.card_img}>
-        <img src={img} className={styles.card_pict} />
+    <>
+      <div className={styles.card}>
+        <Link to={`/cards/${id}`}>
+          <div className={styles.card_item}>
+            <div className={styles.card_img}>
+              <img src={img} className={styles.card_pict} />
+            </div>
+            <div className={styles.card_list}>
+              <Htag tag="h3">{shortText}</Htag>
+            </div>
+            <div className={styles.card_price}>
+              <Price>{price}</Price>
+            </div>
+          </div>
+        </Link>
+        <div className={styles.card_btn} onClick={() => handleLikeAdd(id)}>
+          {like == false ? <AiOutlineLike /> : <AiFillLike />}
+        </div>
+        <div className={styles.card_remove} onClick={() => handleRemove(id)}>
+          <AiOutlineClose />
+        </div>
       </div>
-      <div className={styles.card_list}>
-        <Htag tag="h3">{shortText}</Htag>
-      </div>
-      <div className={styles.card_price}>
-        <Price>{price}</Price>
-      </div>
-      <div className={styles.card_btn} onClick={() => handleClickLike()}>
-        {like == true ? <AiOutlineLike /> : <AiFillLike />}
-      </div>
-      <div className={styles.card_remove} onClick={() => handleRemove(id)}>
-        <AiOutlineClose />
-      </div>
-    </div>
+    </>
   );
 };

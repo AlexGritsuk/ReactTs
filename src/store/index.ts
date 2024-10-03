@@ -1,5 +1,5 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import cardsReducer from "./cardsReducer"
+import { configureStore } from "@reduxjs/toolkit";
+import cardsReducer from "./cardsReducer";
 
 // const rootReducer = combineReducers({
 //   cards: cardsReducer
@@ -14,7 +14,7 @@ import cardsReducer from "./cardsReducer"
 
 const store = configureStore({
   reducer: {
-    cards: cardsReducer,
+    cards: cardsReducer,    
   },
 });
 

@@ -6,4 +6,6 @@ export interface CardProps {
   price: number;
   title: string;
   id: number;
+  like: boolean;
+  handleLikeAdd: Function;
 }
