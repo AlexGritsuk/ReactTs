@@ -25,6 +25,10 @@ export const Cards = (): JSX.Element => {
   const filterCategory = useAppSelector(getFilter());
   const isLoading = useAppSelector(getCardsLoadingStatus());
 
+
+
+
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadCards());
@@ -62,7 +66,7 @@ export const Cards = (): JSX.Element => {
               id={card.id}
               like={card.like}
               handleLikeAdd={handleLikeAdd}
-            ></Card>
+            />
           </div>
         ))}
       </div>

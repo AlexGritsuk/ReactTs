@@ -42,7 +42,12 @@ const cardSlice = createSlice({
   reducers: {
     recived(state, action: PayloadAction<any>) {
       state.entities = action.payload;
+      localStorage.setItem("cards", JSON.stringify(state.entities));
       state.isLoading = false;
+
+      // if (!localStorage.getItem("cards")) {
+      //   localStorage.setItem("cards", JSON.stringify(state.entities));
+      // }
     },
     remove: (state, action: PayloadAction<any>) => {
       state.entities = state.entities.filter((el) => el.id !== action.payload);
@@ -91,7 +96,7 @@ export const loadCards = () => async (dispatch: any) => {
 };
 
 export const filterByCards = (filters: string) => (dispatch: Function) => {
-  dispatch(filterBy(filters));   
+  dispatch(filterBy(filters));
 };
 
 export const cardRemove = (id: number) => (dispatch: Function) => {
