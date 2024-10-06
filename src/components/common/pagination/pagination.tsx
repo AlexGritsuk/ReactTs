@@ -1,26 +1,24 @@
 import React from "react";
 import { PaginationProps } from "./pagination.props";
 import styles from "./pagination.module.css";
+import { useAppDispatch } from "../../../hooks";
+import { handlePageCard } from "../../../store/cardsReducer";
 
-const Pagination = ({
-  currentPage,
-  onPageChance,
-  pages,
-}: PaginationProps): JSX.Element => {
+const Pagination = ({ currentPage, pages }: PaginationProps): JSX.Element => {
+  const dispatch = useAppDispatch();
+
   return (
     <nav>
-      <ul className={styles.pagination__ul}>
-        <li className={styles.pagination__prev}>prev</li>
+      <ul className={styles.pagination__ul}>        
         {pages.map((page) => (
           <li
             key={"page " + page}
-            onClick={() => onPageChance(page)}
+            onClick={() => dispatch(handlePageCard(page))}
             className={page === currentPage ? styles.active : ""}
           >
             <a>{page}</a>
           </li>
-        ))}
-        <li className={styles.pagination__right}>next</li>
+        ))}       
       </ul>
     </nav>
   );

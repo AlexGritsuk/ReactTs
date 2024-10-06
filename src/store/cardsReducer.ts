@@ -28,12 +28,14 @@ interface CardState {
   entities: Card[];
   isLoading: boolean;
   filterBy: string;
+  pagination: number[] | number;
 }
 
 const initialState: CardState = {
   entities: [],
   isLoading: true,
   filterBy: filters.All,
+  pagination: 1
 };
 
 const cardSlice = createSlice({
@@ -43,11 +45,7 @@ const cardSlice = createSlice({
     recived(state, action: PayloadAction<any>) {
       state.entities = action.payload;
       localStorage.setItem("cards", JSON.stringify(state.entities));
-      state.isLoading = false;
-
-      // if (!localStorage.getItem("cards")) {
-      //   localStorage.setItem("cards", JSON.stringify(state.entities));
-      // }
+      state.isLoading = false;    
     },
     remove: (state, action: PayloadAction<any>) => {
       state.entities = state.entities.filter((el) => el.id !== action.payload);
@@ -67,6 +65,10 @@ const cardSlice = createSlice({
     },
     filterBy(state, action: PayloadAction<any>) {
       state.filterBy = action.payload;
+      state.pagination = 1
+    },
+    paginationCard(state, action: PayloadAction<any>) {
+      state.pagination = action.payload
     },
   },
 });
@@ -79,6 +81,7 @@ const {
   cardRequestedFailed,
   cardLikeAdd,
   filterBy,
+  paginationCard,
 } = actions;
 
 export const loadCards = () => async (dispatch: any) => {
@@ -95,9 +98,13 @@ export const loadCards = () => async (dispatch: any) => {
   }
 };
 
-export const filterByCards = (filters: string) => (dispatch: Function) => {
-  dispatch(filterBy(filters));
+export const filterByCards = (filters: string) => (dispatch: Function) => {  
+    dispatch(filterBy(filters));
 };
+
+export const handlePageCard = (pageIndex: number) => (dispatch: Function) => {
+  dispatch(paginationCard(pageIndex))
+}
 
 export const cardRemove = (id: number) => (dispatch: Function) => {
   dispatch(remove(id));
@@ -122,5 +129,7 @@ export const getCardById = (cardId: number) => (state: any) => {
     return state.cards.entities.find((card: any) => card.id == cardId);
   }
 };
+
+export const getCurrentPage = () => (state: any) => state.cards.pagination;
 
 export default cardsReducer;

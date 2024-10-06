@@ -1,0 +1,27 @@
+ .cards_info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 25px;
+
+	width: 400px;
+	position: relative;
+ }
+
+ .cards_item {
+	margin: 5px;
+	
+ }
+
+ .cards_info_pict {
+  display: block;
+  width: 120px;
+}
+
+.cards_btnBack {
+	position: absolute;
+
+	bottom: -100px;
+	z-index: 10;
+}

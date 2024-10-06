@@ -12,3 +12,17 @@
 	left: 50px;
     margin: 10px;
 }
+
+
+.cards_settings {
+	position: absolute;
+	top: 30px;
+	right: 250px;
+	cursor: pointer;
+
+	transition: all 0.3s;
+}
+
+.cards_settings:hover {
+	transform: rotate(180deg);
+}

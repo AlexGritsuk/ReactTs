@@ -8,7 +8,7 @@ const GroupList = ({ handleFilter, groups }: GroupListProps): JSX.Element => {
         <div key={group.id} onClick={() => handleFilter(group.filters)}>
           <ButtonFilter>{group.title}</ButtonFilter>
         </div>
-      ))}
+      ))} 
     </>
   );
 };

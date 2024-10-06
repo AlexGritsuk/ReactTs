@@ -5,6 +5,7 @@ import {
   filters,
   getCards,
   getCardsLoadingStatus,
+  getCurrentPage,
   getFilter,
   loadCards,
 } from "../../store/cardsReducer";
@@ -14,28 +15,19 @@ import Pagination from "../common/pagination/pagination";
 import { pagesArray, paginate } from "../../utils/paginate";
 import { filterdCards } from "../../utils/filterCards";
 
-export const Cards = (): JSX.Element => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const handlePageChange = (pageIndex: number): void => {
-    setCurrentPage(pageIndex);
-  };
+export const Cards = (): JSX.Element => {    
+  
 
   const cards = useAppSelector(getCards());
   const filterCategory = useAppSelector(getFilter());
   const isLoading = useAppSelector(getCardsLoadingStatus());
-
-
-
-
+  const currentPage = useAppSelector(getCurrentPage());
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadCards());
   }, []);
-
   const pageSize: number = 4;
-  const count: number = cards.length;
 
   const handleLikeAdd = (id: any) => {
     dispatch(LikeAdd(id));
@@ -72,8 +64,7 @@ export const Cards = (): JSX.Element => {
       </div>
       <div className={styles.cards__pagin}>
         <Pagination
-          currentPage={currentPage}
-          onPageChance={handlePageChange}
+          currentPage={currentPage}          
           pages={pages}
         />
       </div>
