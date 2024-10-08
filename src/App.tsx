@@ -14,8 +14,7 @@ function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/Cards/:cardId?" element={<CardsList />}></Route>
-        <Route path="/" element={<CardsList />}></Route>
+        <Route path="/:Cards?/:cardId?" element={<CardsList />}></Route>        
         <Route path="/Create" element={<CreateProduct />}></Route>
       </Routes>
     </BrowserRouter>

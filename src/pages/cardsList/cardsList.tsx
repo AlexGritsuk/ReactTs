@@ -7,6 +7,7 @@ import styles from "./cardsList.module.css";
 import CardInfo from "../infoCard/cardInfo";
 import GroupList from "../../components/common/groupList/groupList";
 import { CiSettings } from "react-icons/ci";
+import { ButtonFilter } from "../../components/buttonfilter/buttonFilter";
 
 
 const CardsList = (): JSX.Element => {
@@ -41,7 +42,10 @@ const CardsList = (): JSX.Element => {
           </div>
           <Link to="/Create">
             <div className={styles.cards_settings}>
-              <CiSettings />
+              <ButtonFilter>
+                Создать
+                <CiSettings />
+              </ButtonFilter>
             </div>
           </Link>
         </div>
