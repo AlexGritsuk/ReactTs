@@ -1,6 +1,7 @@
 import { Cards } from "./../components/cards/cards";
 import thingService from "../services/thing.service";
 import { PayloadAction, createAction, createSlice } from "@reduxjs/toolkit";
+import getRandomInt from "../utils/getRandom";
 // import { setError } from "./errors";
 
 export const filters = {
@@ -12,7 +13,7 @@ export const filters = {
   СategoryWomansClothing: "women's clothing",
 };
 
-export interface Card {
+export interface CardInitial {
   id: number;
   title: string;
   price: number;
@@ -25,7 +26,7 @@ export interface Card {
 }
 
 interface CardState {
-  entities: Card[];
+  entities: CardInitial[];
   isLoading: boolean;
   filterBy: string;
   pagination: number[] | number;
@@ -35,7 +36,7 @@ const initialState: CardState = {
   entities: [],
   isLoading: true,
   filterBy: filters.All,
-  pagination: 1
+  pagination: 1,
 };
 
 const cardSlice = createSlice({
@@ -45,7 +46,7 @@ const cardSlice = createSlice({
     recived(state, action: PayloadAction<any>) {
       state.entities = action.payload;
       localStorage.setItem("cards", JSON.stringify(state.entities));
-      state.isLoading = false;    
+      state.isLoading = false;
     },
     remove: (state, action: PayloadAction<any>) => {
       state.entities = state.entities.filter((el) => el.id !== action.payload);
@@ -65,10 +66,13 @@ const cardSlice = createSlice({
     },
     filterBy(state, action: PayloadAction<any>) {
       state.filterBy = action.payload;
-      state.pagination = 1
+      state.pagination = 1;
     },
     paginationCard(state, action: PayloadAction<any>) {
-      state.pagination = action.payload
+      state.pagination = action.payload;
+    },
+    cardCreated(state, action: PayloadAction<any>) {
+      state.entities.push(action.payload);
     },
   },
 });
@@ -82,6 +86,7 @@ const {
   cardLikeAdd,
   filterBy,
   paginationCard,
+  cardCreated,
 } = actions;
 
 export const loadCards = () => async (dispatch: any) => {
@@ -98,26 +103,46 @@ export const loadCards = () => async (dispatch: any) => {
   }
 };
 
-export const filterByCards = (filters: string) => (dispatch: Function) => {  
-    dispatch(filterBy(filters));
+export const filterByCards = (filters: string) => (dispatch: Function) => {
+  dispatch(filterBy(filters));
 };
 
 export const handlePageCard = (pageIndex: number) => (dispatch: Function) => {
-  dispatch(paginationCard(pageIndex))
-}
+  dispatch(paginationCard(pageIndex));
+};
 
 export const cardRemove = (id: number) => (dispatch: Function) => {
   dispatch(remove(id));
 };
 
-export const LikeAdd = (id: any) => (dispatch: Function) => {
+export const LikeAdd = (id: number) => (dispatch: Function) => {
   dispatch(cardLikeAdd(id));
 };
 
 export const cardRecivedLike =
   (cardsFilterLike: any) => (dispatch: Function) => {
+    console.log(cardsFilterLike);
+    
     dispatch(recived(cardsFilterLike));
   };
+
+export const createCard =
+  ({ ...rest }) =>
+  (dispatch: Function) => {
+    dispatch(
+      createCard2({
+        id: Date.now(),
+        rating: { rate: getRandomInt(1, 5), count: getRandomInt(100, 500) },
+
+        image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCEcVowQuwMc_gMHbCC-pVlZORmqpEh5eeng&s`,
+        ...rest,
+      })
+    );
+  };
+
+const createCard2 = (content: any) => (dispatch: Function) => {
+  dispatch(cardCreated(content));
+};
 
 export const getCards = () => (state: any) => state.cards.entities;
 export const getFilter = () => (state: any) => state.cards.filterBy;

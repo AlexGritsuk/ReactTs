@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {
+import { 
+  CardInitial,
   LikeAdd,
   filters,
   getCards,
@@ -22,14 +23,11 @@ export const Cards = (): JSX.Element => {
   const filterCategory = useAppSelector(getFilter());
   const isLoading = useAppSelector(getCardsLoadingStatus());
   const currentPage = useAppSelector(getCurrentPage());
-
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(loadCards());
-  }, []);
+  const dispatch = useAppDispatch();  
+  
   const pageSize: number = 4;
 
-  const handleLikeAdd = (id: any) => {
+  const handleLikeAdd = (id: number) => {
     dispatch(LikeAdd(id));
   };
 
@@ -41,10 +39,16 @@ export const Cards = (): JSX.Element => {
     filterdCards(filterCategory, filters, cards),
     currentPage,
     pageSize
-  );
+  );  
 
   if (isLoading) {
     return <h1>Loading</h1>;
+  }
+
+  console.log(cardCrop);
+  
+  interface cardProp {
+
   }
   return (
     <div className={styles.cards_wrapper}>
@@ -63,10 +67,7 @@ export const Cards = (): JSX.Element => {
         ))}
       </div>
       <div className={styles.cards__pagin}>
-        <Pagination
-          currentPage={currentPage}          
-          pages={pages}
-        />
+        <Pagination currentPage={currentPage} pages={pages} />
       </div>
     </div>
   );

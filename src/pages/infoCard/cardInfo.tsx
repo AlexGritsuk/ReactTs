@@ -1,20 +1,11 @@
 import { CardInfoProps } from "./cardInfo.props";
 import { getCardById, loadCards } from "../../store/cardsReducer";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useEffect } from "react";
+import { useAppSelector } from "../../hooks";
 import styles from "./cardInfo.module.css"
 import BtnBack from "../../components/buttonBack/btnBack";
 
 const CardInfo = ({ idCard }: CardInfoProps): JSX.Element => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(loadCards());
-  }, []);
-
   const cards = useAppSelector(getCardById(idCard));
-
-  console.log(cards);
-  
 
   return (
     <div>

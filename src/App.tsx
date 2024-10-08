@@ -1,15 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Cards } from "./components/cards/cards";
 import "./index.css";
 import CardsList from "./pages/cardsList/cardsList";
-import Main from "./pages/main/main";
 import CreateProduct from "./pages/createProduct/createProduct";
+import { useEffect } from "react";
+import { loadCards } from "./store/cardsReducer";
+import { useAppDispatch } from "./hooks";
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(loadCards());
+  }, []);
   return (
     <BrowserRouter>
-      <Routes>        
+      <Routes>
         <Route path="/Cards/:cardId?" element={<CardsList />}></Route>
+        <Route path="/" element={<CardsList />}></Route>
         <Route path="/Create" element={<CreateProduct />}></Route>
       </Routes>
     </BrowserRouter>
