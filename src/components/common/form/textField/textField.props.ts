@@ -4,4 +4,5 @@ export interface TextFieldProps {
   name: string;
   value: string | number;
   onChange: Function;
+  placeholder?: any;
 }

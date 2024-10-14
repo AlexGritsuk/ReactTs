@@ -43,9 +43,7 @@ export const Cards = (): JSX.Element => {
 
   if (isLoading) {
     return <h1>Loading</h1>;
-  }
-
-  console.log(cardCrop);
+  } 
   
   interface cardProp {
 

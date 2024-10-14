@@ -9,6 +9,10 @@ import { AiOutlineLike } from "react-icons/ai";
 import { AiFillLike } from "react-icons/ai";
 import { sliceText } from "../../utils/sliceText";
 import { Link } from "react-router-dom";
+import BtnEdit from "../ButtonEdit/btnEdit";
+import { useState } from "react";
+import ModalFormEdit from "../../pages/ModalFormEdit/ModalFormEdit";
+import Modal from "../modal/modal";
 
 export const Card = ({
   children,
@@ -19,6 +23,7 @@ export const Card = ({
   like,
   handleLikeAdd,
 }: CardProps) => {
+  const [isModalActive, setModalActive] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleRemove = (id: number) => {
@@ -26,6 +31,14 @@ export const Card = ({
   };
 
   let shortText = sliceText(title);
+
+  const handleModalOpen = () => {
+    setModalActive(true);
+  };
+
+  const handleModalClose = () => {
+    setModalActive(false);
+  };
 
   return (
     <>
@@ -48,6 +61,16 @@ export const Card = ({
         </div>
         <div className={styles.card_remove} onClick={() => handleRemove(id)}>
           <AiOutlineClose />
+        </div>
+        <div className={styles.card_edit}>
+          <BtnEdit handleClick={handleModalOpen} />
+        </div>
+        <div>
+          {isModalActive && (
+            <Modal title="Отредактируйте карточку" onClose={handleModalClose}>
+              <ModalFormEdit cardId={id} />
+            </Modal>
+          )}
         </div>
       </div>
     </>

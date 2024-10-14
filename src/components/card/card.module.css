@@ -50,7 +50,7 @@
 
 .card_price {
   position: absolute;
-  bottom: 25px;
+  bottom: 50px;
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 10;
@@ -79,4 +79,11 @@
 .card_remove svg:hover {
   transform: rotate(90deg);
   transition: all 0.3s;
+}
+
+.card_edit {
+  position: absolute;
+  bottom: 0px;
+  left: 5%;  
+  z-index: 10;  
 }

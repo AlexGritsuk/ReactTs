@@ -74,6 +74,11 @@ const cardSlice = createSlice({
     cardCreated(state, action: PayloadAction<any>) {
       state.entities.push(action.payload);
     },
+    cardEdit(state, action: PayloadAction<any>) {
+      state.entities[
+        state.entities.findIndex((u) => u.id === action.payload.id)
+      ] = action.payload;
+    },
   },
 });
 
@@ -87,6 +92,7 @@ const {
   filterBy,
   paginationCard,
   cardCreated,
+  cardEdit,
 } = actions;
 
 export const loadCards = () => async (dispatch: any) => {
@@ -122,7 +128,7 @@ export const LikeAdd = (id: number) => (dispatch: Function) => {
 export const cardRecivedLike =
   (cardsFilterLike: any) => (dispatch: Function) => {
     console.log(cardsFilterLike);
-    
+
     dispatch(recived(cardsFilterLike));
   };
 
@@ -144,12 +150,39 @@ const createCard2 = (content: any) => (dispatch: Function) => {
   dispatch(cardCreated(content));
 };
 
+
+export const editUser = (payload: any) => (dispatch: Function) => {
+  dispatch(cardEdit(payload));
+};
+
+// const editCard = (id: any) => (dispatch: Function) => {
+//   dispatch(cardEdit(id));
+// };
+
+// export const editCard2 =
+//   ({ title, price, description }: any) =>
+//   (dispatch: Function) => {
+//     dispatch(
+//       editCard({
+//         title: title,
+//         price: price,
+//         description: description,
+//       })
+//     );
+//   };
+
 export const getCards = () => (state: any) => state.cards.entities;
 export const getFilter = () => (state: any) => state.cards.filterBy;
 export const getCardsLoadingStatus = () => (state: any) =>
   state.cards.isLoading;
 
 export const getCardById = (cardId: number) => (state: any) => {
+  if (state.cards.entities) {
+    return state.cards.entities.find((card: any) => card.id == cardId);
+  }
+};
+
+export const getCurrentCardData = (cardId: number) => (state: any) => {
   if (state.cards.entities) {
     return state.cards.entities.find((card: any) => card.id == cardId);
   }

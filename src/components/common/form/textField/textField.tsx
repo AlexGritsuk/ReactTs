@@ -7,6 +7,7 @@ const TextFileld = ({
   name,
   value,
   onChange,
+  placeholder,
 }: TextFieldProps): JSX.Element => {
   const handleChange = ({ target }: any) => {
     onChange({ name: target.name, value: target.value });
@@ -18,6 +19,7 @@ const TextFileld = ({
         <label htmlFor={name}>{label}</label>
       </div>
       <input
+        placeholder={placeholder}
         type={type}
         id={name}
         name={name}
